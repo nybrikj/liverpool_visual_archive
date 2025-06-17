@@ -57,7 +57,7 @@ export default function Home() {
           <p className="text-lg text-red-500">Error: {error}</p>
         ) : (
           <div
-            className={`flex flex-col items-center justify-center gap-4 h-full transition-opacity duration-500 ${
+            className={`flex flex-col items-center justify-center gap-4 h-full transition-opacity duration-666 ${
               loading ? 'opacity-0' : 'opacity-100'
             }`}
           >
