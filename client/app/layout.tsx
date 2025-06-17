@@ -2,6 +2,16 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+// client/app/layout.tsx
+
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import "./retro-button.css"; // <-- ADD THIS LINE
+
+const inter = Inter({ subsets: ["latin"] });
+
+// ... rest of the file
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
