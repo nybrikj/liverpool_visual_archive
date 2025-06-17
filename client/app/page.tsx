@@ -29,7 +29,7 @@ export default function Home() {
 
       if (data && data.id) {
         setImage(data);
-        setError(null); // clear any previous errors
+        setError(null);
       } else {
         setError('No images found in the database.');
         setImage(null);
@@ -53,30 +53,37 @@ export default function Home() {
       </div>
 
       <div className="flex-1 w-full flex items-center justify-center overflow-hidden">
-        {loading && <p className="text-lg">Loading...</p>}
-        {error && <p className="text-lg text-red-500">Error: {error}</p>}
+        {error ? (
+          <p className="text-lg text-red-500">Error: {error}</p>
+        ) : (
+          <div
+            className={`flex flex-col items-center justify-center gap-4 h-full transition-opacity duration-500 ${
+              loading ? 'opacity-0' : 'opacity-100'
+            }`}
+          >
+            {image && (
+              <>
+                <h2 className="text-3xl font-semibold flex-shrink-0">{image.title}</h2>
 
-        {image && !loading && (
-          <div className="flex flex-col items-center justify-center gap-4 h-full">
-            <h2 className="text-3xl font-semibold flex-shrink-0">{image.title}</h2>
+                <div className="relative w-full flex-1">
+                  <Image
+                    src={`/images/${image.cloudinary_id}`}
+                    alt={image.description || image.title || 'A photograph from the Liverpool archive'}
+                    fill
+                    className="object-contain"
+                    priority
+                    key={image.id}
+                  />
+                </div>
 
-            <div className="relative w-full flex-1">
-              <Image
-                src={`/images/${image.cloudinary_id}`} // This assumes you're serving from /public/images/
-                alt={image.description || image.title || 'A photograph from the Liverpool archive'}
-                fill
-                className="object-contain"
-                priority
-                key={image.id}
-              />
-            </div>
-
-            <div className="flex-shrink-0">
-              <p className="text-lg mt-2">{image.description}</p>
-              <p className="text-sm text-gray-500">
-                Taken on: {new Date(image.date_taken).toLocaleDateString()}
-              </p>
-            </div>
+                <div className="flex-shrink-0">
+                  <p className="text-lg mt-2">{image.description}</p>
+                  <p className="text-sm text-gray-500">
+                    Taken on: {new Date(image.date_taken).toLocaleDateString()}
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         )}
       </div>
